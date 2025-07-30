@@ -10,7 +10,7 @@ const SteganographyTool: React.FC = () => {
   const [showDecodeResult, setShowDecodeResult] = useState(false);
   const [encodedBlobUrl, setEncodedBlobUrl] = useState("");
   const [encodeImagePreview, setEncodeImagePreview] = useState("");
-  const [decodeImagePreview, setDecodeImagePreview] = useState("");
+  // const [decodeImagePreview, setDecodeImagePreview] = useState("");
 
   const originalCanvasRef = useRef<HTMLCanvasElement>(null);
   const messageCanvasRef = useRef<HTMLCanvasElement>(null);
