@@ -87,24 +87,46 @@ export default function Page() {
     <>
       <style dangerouslySetInnerHTML={{
         __html: `
-          @keyframes shimmer {
+          @keyframes blackShimmer {
             0% { background-position: -200% 0; }
             100% { background-position: 200% 0; }
           }
           
-          @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(16, 185, 129, 0.6), 0 0 60px rgba(16, 185, 129, 0.3); }
+          @keyframes darkGlow {
+            0%, 100% { 
+              box-shadow: 
+                0 0 20px rgba(0, 0, 0, 0.8),
+                0 0 40px rgba(0, 0, 0, 0.6),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+            }
+            50% { 
+              box-shadow: 
+                0 0 40px rgba(0, 0, 0, 0.9),
+                0 0 80px rgba(0, 0, 0, 0.7),
+                0 0 120px rgba(0, 0, 0, 0.5),
+                inset 0 0 30px rgba(255, 255, 255, 0.15);
+            }
           }
           
-          @keyframes blueGlow {
-            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6), 0 0 60px rgba(59, 130, 246, 0.3); }
+          @keyframes whiteGlow {
+            0%, 100% { 
+              box-shadow: 
+                0 0 20px rgba(255, 255, 255, 0.3),
+                0 0 40px rgba(255, 255, 255, 0.2),
+                inset 0 0 20px rgba(0, 0, 0, 0.3);
+            }
+            50% { 
+              box-shadow: 
+                0 0 40px rgba(255, 255, 255, 0.5),
+                0 0 80px rgba(255, 255, 255, 0.3),
+                0 0 120px rgba(255, 255, 255, 0.2),
+                inset 0 0 30px rgba(0, 0, 0, 0.4);
+            }
           }
           
           @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.02); }
           }
           
           @keyframes slideIn {
@@ -117,195 +139,192 @@ export default function Page() {
             50% { transform: translateY(-10px); }
           }
           
-          .shimmer-text {
+          @keyframes shadowWave {
+            0%, 100% {
+              box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.3),
+                0 10px 30px rgba(0, 0, 0, 0.2),
+                0 15px 50px rgba(0, 0, 0, 0.1);
+            }
+            50% {
+              box-shadow: 
+                0 10px 25px rgba(0, 0, 0, 0.4),
+                0 20px 50px rgba(0, 0, 0, 0.3),
+                0 30px 80px rgba(0, 0, 0, 0.2);
+            }
+          }
+          
+          .black-shimmer-text {
             background: linear-gradient(
               90deg,
-              #10b981 0%,
-              #34d399 25%,
-              #6ee7b7 50%,
-              #34d399 75%,
-              #10b981 100%
+              #ffffff 0%,
+              #e5e7eb 25%,
+              #000000 50%,
+              #e5e7eb 75%,
+              #ffffff 100%
             );
             background-size: 200% 100%;
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shimmer 3s linear infinite;
+            animation: blackShimmer 3s linear infinite;
           }
           
-          .glow-border {
-            position: relative;
-            background: linear-gradient(145deg, #1f2937, #111827);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+          .shadow-box {
+            background: linear-gradient(145deg, #1a1a1a, #000000);
+            border: 2px solid #333333;
             box-shadow: 
+              0 10px 30px rgba(0, 0, 0, 0.7),
+              0 20px 60px rgba(0, 0, 0, 0.5),
               inset 0 1px 0 rgba(255, 255, 255, 0.1),
-              0 4px 32px rgba(0, 0, 0, 0.5),
-              0 0 0 1px rgba(16, 185, 129, 0.1);
+              inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+            animation: shadowWave 4s ease-in-out infinite;
           }
           
-          .glow-border::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #10b981, #3b82f6, #8b5cf6, #10b981);
-            background-size: 400% 400%;
-            border-radius: inherit;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            animation: shimmer 4s linear infinite;
-          }
-          
-          .glow-border:hover::before {
-            opacity: 1;
-          }
-          
-          .blue-glow-border {
-            background: linear-gradient(145deg, #1e3a8a, #1e40af);
-            border: 1px solid rgba(59, 130, 246, 0.3);
+          .white-shadow-box {
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
+            border: 2px solid #e5e7eb;
             box-shadow: 
-              inset 0 1px 0 rgba(255, 255, 255, 0.1),
-              0 4px 32px rgba(0, 0, 0, 0.5),
-              0 0 0 1px rgba(59, 130, 246, 0.1);
+              0 10px 30px rgba(0, 0, 0, 0.3),
+              0 20px 60px rgba(0, 0, 0, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.8),
+              inset 0 -1px 0 rgba(0, 0, 0, 0.1);
           }
           
-          .glass-effect {
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            background: rgba(31, 41, 55, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+          .dramatic-shadow {
+            box-shadow: 
+              0 25px 50px rgba(0, 0, 0, 0.8),
+              0 50px 100px rgba(0, 0, 0, 0.6),
+              0 75px 150px rgba(0, 0, 0, 0.4),
+              inset 0 2px 4px rgba(255, 255, 255, 0.1);
           }
           
-          .neon-glow {
-            text-shadow: 
-              0 0 5px rgba(16, 185, 129, 0.8),
-              0 0 10px rgba(16, 185, 129, 0.6),
-              0 0 15px rgba(16, 185, 129, 0.4),
-              0 0 20px rgba(16, 185, 129, 0.2);
-          }
-          
-          .float-animation {
-            animation: float 6s ease-in-out infinite;
-          }
-          
-          .slide-in {
-            animation: slideIn 0.5s ease-out;
-          }
-          
-          .enhanced-button {
+          .enhanced-button-bw {
             position: relative;
             overflow: hidden;
-            background: linear-gradient(145deg, #10b981, #059669);
+            background: linear-gradient(145deg, #000000, #1a1a1a);
+            border: 2px solid #ffffff;
             box-shadow: 
-              0 4px 15px rgba(16, 185, 129, 0.4),
+              0 8px 25px rgba(0, 0, 0, 0.6),
+              0 15px 50px rgba(0, 0, 0, 0.4),
               inset 0 1px 0 rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
+            color: white;
           }
           
-          .enhanced-button:hover {
-            transform: translateY(-2px);
+          .enhanced-button-bw:hover {
+            transform: translateY(-3px);
             box-shadow: 
-              0 8px 25px rgba(16, 185, 129, 0.6),
-              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+              0 15px 40px rgba(0, 0, 0, 0.8),
+              0 25px 70px rgba(0, 0, 0, 0.6),
+              0 35px 100px rgba(0, 0, 0, 0.4),
+              inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            animation: darkGlow 2s ease-in-out infinite;
           }
           
-          .enhanced-button::before {
+          .enhanced-button-bw::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: left 0.5s;
           }
           
-          .enhanced-button:hover::before {
+          .enhanced-button-bw:hover::before {
             left: 100%;
           }
           
-          .blue-enhanced-button {
-            background: linear-gradient(145deg, #3b82f6, #2563eb);
+          .white-button {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border: 2px solid #000000;
+            color: #000000;
             box-shadow: 
-              0 4px 15px rgba(59, 130, 246, 0.4),
-              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+              0 8px 25px rgba(0, 0, 0, 0.3),
+              0 15px 50px rgba(0, 0, 0, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.8);
           }
           
-          .blue-enhanced-button:hover {
-            box-shadow: 
-              0 8px 25px rgba(59, 130, 246, 0.6),
-              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+          .white-button:hover {
+            animation: whiteGlow 2s ease-in-out infinite;
           }
           
-          .enhanced-input {
-            background: linear-gradient(145deg, #374151, #1f2937);
-            border: 1px solid rgba(75, 85, 99, 0.5);
+          .enhanced-input-bw {
+            background: linear-gradient(145deg, #1a1a1a, #000000);
+            border: 2px solid #333333;
+            color: #ffffff;
             box-shadow: 
-              inset 0 2px 4px rgba(0, 0, 0, 0.3),
-              0 1px 0 rgba(255, 255, 255, 0.05);
+              inset 0 4px 8px rgba(0, 0, 0, 0.6),
+              inset 0 -2px 4px rgba(255, 255, 255, 0.05),
+              0 2px 8px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
           }
           
-          .enhanced-input:focus {
-            border-color: rgba(16, 185, 129, 0.5);
+          .enhanced-input-bw:focus {
+            border-color: #ffffff;
             box-shadow: 
-              inset 0 2px 4px rgba(0, 0, 0, 0.3),
-              0 0 0 3px rgba(16, 185, 129, 0.1),
-              0 0 20px rgba(16, 185, 129, 0.3);
+              inset 0 4px 8px rgba(0, 0, 0, 0.6),
+              0 0 0 3px rgba(255, 255, 255, 0.2),
+              0 0 20px rgba(255, 255, 255, 0.3),
+              0 5px 15px rgba(0, 0, 0, 0.5);
             outline: none;
           }
           
-          .digest-output {
+          .digest-output-bw {
             font-family: 'Courier New', monospace;
             letter-spacing: 1px;
-            background: linear-gradient(145deg, #111827, #1f2937);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: linear-gradient(145deg, #000000, #1a1a1a);
+            border: 2px solid #333333;
+            color: #ffffff;
             box-shadow: 
-              inset 0 2px 8px rgba(0, 0, 0, 0.4),
-              0 0 20px rgba(16, 185, 129, 0.1);
+              inset 0 4px 12px rgba(0, 0, 0, 0.8),
+              inset 0 -2px 6px rgba(255, 255, 255, 0.05),
+              0 8px 25px rgba(0, 0, 0, 0.6);
             transition: all 0.3s ease;
           }
           
-          .digest-copied {
-            background: linear-gradient(145deg, #064e3b, #065f46);
-            border-color: rgba(16, 185, 129, 0.8);
+          .digest-copied-bw {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-color: #000000;
+            color: #000000;
             box-shadow: 
-              inset 0 2px 8px rgba(0, 0, 0, 0.4),
-              0 0 30px rgba(16, 185, 129, 0.4);
-            animation: glow 1s ease-in-out;
+              inset 0 4px 12px rgba(255, 255, 255, 0.8),
+              inset 0 -2px 6px rgba(0, 0, 0, 0.1),
+              0 8px 25px rgba(255, 255, 255, 0.6),
+              0 15px 50px rgba(255, 255, 255, 0.4);
+            animation: whiteGlow 1s ease-in-out;
           }
           
-          .verification-success {
-            background: linear-gradient(90deg, #10b981, #34d399);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+          .verification-success-bw {
+            color: #ffffff;
+            text-shadow: 
+              0 0 10px rgba(255, 255, 255, 0.8),
+              0 0 20px rgba(255, 255, 255, 0.6),
+              0 0 30px rgba(255, 255, 255, 0.4);
             animation: pulse 2s ease-in-out infinite;
           }
           
-          .verification-error {
-            background: linear-gradient(90deg, #ef4444, #f87171);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+          .verification-error-bw {
+            color: #000000;
+            text-shadow: 
+              0 0 10px rgba(0, 0, 0, 0.8),
+              0 0 20px rgba(0, 0, 0, 0.6),
+              0 0 30px rgba(0, 0, 0, 0.4);
             animation: pulse 2s ease-in-out infinite;
           }
           
-          .cosmic-bg {
+          .cosmic-bg-bw {
             background: 
-              radial-gradient(ellipse at top, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-              radial-gradient(ellipse at bottom, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-              linear-gradient(180deg, #0f172a, #020617);
+              radial-gradient(ellipse at top, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+              radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.8) 0%, transparent 50%),
+              linear-gradient(180deg, #000000, #1a1a1a);
             min-height: 100vh;
             position: relative;
           }
           
-          .cosmic-bg::before {
+          .cosmic-bg-bw::before {
             content: '';
             position: fixed;
             top: 0;
@@ -313,11 +332,11 @@ export default function Page() {
             width: 100%;
             height: 100%;
             background-image: 
-              radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.2), transparent),
-              radial-gradient(2px 2px at 40px 70px, rgba(16, 185, 129, 0.3), transparent),
-              radial-gradient(1px 1px at 90px 40px, rgba(59, 130, 246, 0.3), transparent),
-              radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.2), transparent),
-              radial-gradient(2px 2px at 160px 30px, rgba(139, 92, 246, 0.3), transparent);
+              radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.3), transparent),
+              radial-gradient(1px 1px at 40px 70px, rgba(255, 255, 255, 0.2), transparent),
+              radial-gradient(1px 1px at 90px 40px, rgba(0, 0, 0, 0.5), transparent),
+              radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.25), transparent),
+              radial-gradient(1px 1px at 160px 30px, rgba(0, 0, 0, 0.4), transparent);
             background-repeat: repeat;
             background-size: 200px 150px;
             animation: float 20s linear infinite;
@@ -329,22 +348,74 @@ export default function Page() {
             position: relative;
             z-index: 1;
           }
+          
+          .glass-effect-bw {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+              0 8px 32px rgba(0, 0, 0, 0.8),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          }
+          
+          .black-shine {
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .black-shine::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+              from 0deg,
+              transparent,
+              rgba(0, 0, 0, 0.8),
+              transparent,
+              rgba(0, 0, 0, 0.6),
+              transparent
+            );
+            animation: blackShimmer 4s linear infinite;
+            z-index: -1;
+          }
+          
+          .deep-shadow {
+            box-shadow: 
+              0 20px 40px rgba(0, 0, 0, 0.9),
+              0 40px 80px rgba(0, 0, 0, 0.7),
+              0 60px 120px rgba(0, 0, 0, 0.5),
+              inset 0 2px 4px rgba(255, 255, 255, 0.1),
+              inset 0 -2px 4px rgba(0, 0, 0, 0.5);
+          }
+          
+          .layered-shadow {
+            box-shadow: 
+              0 1px 3px rgba(0, 0, 0, 0.9),
+              0 4px 6px rgba(0, 0, 0, 0.8),
+              0 10px 20px rgba(0, 0, 0, 0.7),
+              0 20px 40px rgba(0, 0, 0, 0.6),
+              0 40px 80px rgba(0, 0, 0, 0.4);
+          }
         `
       }} />
       
-      <main className="cosmic-bg antialiased">
+      <main className="cosmic-bg-bw antialiased">
         <div className="content-wrapper mx-auto max-w-4xl p-4 sm:p-6 space-y-8">
-          <header className="float-animation flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-neutral-800/50 pb-6 gap-4 glass-effect rounded-2xl p-6 mb-8">
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight shimmer-text neon-glow text-center sm:text-left">
+          <header className="float-animation flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-white/20 pb-6 gap-4 glass-effect-bw rounded-2xl p-6 mb-8 dramatic-shadow">
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight black-shimmer-text text-center sm:text-left">
               SHA-1 Message Digest Algorithm
             </h1>
             <nav className="flex justify-center space-x-4">
               <button
                 onClick={() => setActiveTab("sender")}
-                className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 enhanced-button ${
+                className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 ${
                   activeTab === "sender"
-                    ? "transform -translate-y-1"
-                    : "bg-neutral-800/80 hover:bg-neutral-700/80 backdrop-blur-sm"
+                    ? "enhanced-button-bw transform -translate-y-1"
+                    : "bg-gray-800/80 hover:bg-gray-700/80 backdrop-blur-sm text-white border border-white/30 layered-shadow"
                 }`}
               >
                 Sender
@@ -353,8 +424,8 @@ export default function Page() {
                 onClick={() => setActiveTab("receiver")}
                 className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 ${
                   activeTab === "receiver"
-                    ? "blue-enhanced-button transform -translate-y-1"
-                    : "bg-neutral-800/80 hover:bg-neutral-700/80 backdrop-blur-sm"
+                    ? "white-button enhanced-button-bw transform -translate-y-1"
+                    : "bg-gray-800/80 hover:bg-gray-700/80 backdrop-blur-sm text-white border border-white/30 layered-shadow"
                 }`}
               >
                 Receiver
@@ -363,27 +434,27 @@ export default function Page() {
           </header>
 
           {activeTab === "sender" && (
-            <section className="slide-in space-y-6 glow-border rounded-2xl p-8 backdrop-blur-sm">
-              <h2 className="text-2xl font-bold text-emerald-300 neon-glow">Sender</h2>
+            <section className="slide-in space-y-6 shadow-box rounded-2xl p-8 backdrop-blur-sm black-shine">
+              <h2 className="text-2xl font-bold text-white">Sender</h2>
               
               <div className="space-y-3">
-                <label className="text-sm font-semibold text-emerald-200 tracking-wide">Message</label>
+                <label className="text-sm font-semibold text-gray-300 tracking-wide">Message</label>
                 <textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full h-28 rounded-2xl enhanced-input p-4 text-neutral-200 placeholder-neutral-400 resize-none"
+                  className="w-full h-28 rounded-2xl enhanced-input-bw p-4 placeholder-gray-500 resize-none"
                   placeholder="Enter your message here..."
                 />
               </div>
               
               <div className="space-y-3">
-                <label className="text-sm font-semibold text-emerald-200 tracking-wide">Upload File</label>
+                <label className="text-sm font-semibold text-gray-300 tracking-wide">Upload File</label>
                 <input
                   type="file"
                   onChange={(e) => e.target.files && handleFileInput(e.target.files[0])}
-                  className="block w-full text-sm text-neutral-300 
+                  className="block w-full text-sm text-gray-300 
                     file:mr-4 file:py-3 file:px-6 file:rounded-full file:border-0 
-                    file:text-sm file:font-semibold file:enhanced-button file:text-white 
+                    file:text-sm file:font-semibold file:enhanced-button-bw
                     hover:file:transform hover:file:-translate-y-1 file:transition-all file:duration-300
                     file:cursor-pointer cursor-pointer"
                 />
@@ -391,30 +462,30 @@ export default function Page() {
               
               <button
                 onClick={handleSender}
-                className="px-8 py-4 rounded-2xl font-bold enhanced-button text-white text-lg shadow-2xl"
+                className="px-8 py-4 rounded-2xl font-bold enhanced-button-bw text-lg deep-shadow"
               >
                 ✨ Generate Digest
               </button>
               
               <div className="space-y-3">
-                <label className="text-sm font-semibold text-emerald-200 tracking-wide">Message Digest (SHA-1)</label>
+                <label className="text-sm font-semibold text-gray-300 tracking-wide">Message Digest (SHA-1)</label>
                 <textarea
                   readOnly
                   value={digest}
                   className={`w-full h-24 rounded-2xl p-4 text-sm transition-all duration-500 resize-none ${
                     copied
-                      ? "digest-copied text-emerald-300"
-                      : "digest-output text-neutral-300"
+                      ? "digest-copied-bw"
+                      : "digest-output-bw"
                   }`}
                   placeholder="Your SHA-1 digest will appear here..."
                 />
                 {digest && (
                   <button
                     onClick={handleCopy}
-                    className={`px-6 py-3 rounded-xl font-semibold shadow-lg transition-all duration-300 ${
+                    className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
                       copied
-                        ? "enhanced-button text-white transform scale-105"
-                        : "bg-neutral-700/80 hover:bg-neutral-600/80 text-neutral-200 hover:transform hover:scale-105 backdrop-blur-sm"
+                        ? "white-button transform scale-105 deep-shadow"
+                        : "bg-gray-700/80 hover:bg-gray-600/80 text-white hover:transform hover:scale-105 backdrop-blur-sm border border-white/30 layered-shadow"
                     }`}
                   >
                     {copied ? "✅ Copied!" : "📋 Copy Digest"}
@@ -425,40 +496,40 @@ export default function Page() {
           )}
 
           {activeTab === "receiver" && (
-            <section className="slide-in space-y-6 blue-glow-border rounded-2xl p-8 backdrop-blur-sm">
-              <h2 className="text-2xl font-bold text-blue-300 neon-glow">Receiver</h2>
+            <section className="slide-in space-y-6 white-shadow-box rounded-2xl p-8 backdrop-blur-sm">
+              <h2 className="text-2xl font-bold text-black">Receiver</h2>
               
               <div className="space-y-3">
-                <label className="text-sm font-semibold text-blue-200 tracking-wide">Received Message</label>
+                <label className="text-sm font-semibold text-gray-700 tracking-wide">Received Message</label>
                 <textarea
                   value={recvMessage}
                   onChange={(e) => setRecvMessage(e.target.value)}
-                  className="w-full h-28 rounded-2xl enhanced-input p-4 text-neutral-200 placeholder-neutral-400 resize-none"
+                  className="w-full h-28 rounded-2xl p-4 text-black placeholder-gray-500 resize-none bg-white border-2 border-gray-300 shadow-inner"
                   placeholder="Paste the received message here..."
                 />
               </div>
               
               <div className="space-y-3">
-                <label className="text-sm font-semibold text-blue-200 tracking-wide">Received Digest</label>
+                <label className="text-sm font-semibold text-gray-700 tracking-wide">Received Digest</label>
                 <textarea
                   value={recvDigest}
                   onChange={(e) => setRecvDigest(e.target.value)}
-                  className="w-full h-24 rounded-2xl enhanced-input p-4 text-sm font-mono text-neutral-200 placeholder-neutral-400 resize-none"
+                  className="w-full h-24 rounded-2xl p-4 text-sm font-mono text-black placeholder-gray-500 resize-none bg-white border-2 border-gray-300 shadow-inner"
                   placeholder="Paste the received SHA-1 digest here..."
                 />
               </div>
               
               <button
                 onClick={handleReceiver}
-                className="px-8 py-4 rounded-2xl font-bold blue-enhanced-button text-white text-lg shadow-2xl"
+                className="px-8 py-4 rounded-2xl font-bold white-button text-lg deep-shadow"
               >
                 🔍 Verify Integrity
               </button>
               
               {verification !== null && (
-                <div className="p-6 rounded-2xl glass-effect border border-neutral-700/50 backdrop-blur-sm">
+                <div className="p-6 rounded-2xl glass-effect-bw border border-white/30 backdrop-blur-sm dramatic-shadow">
                   <p className={`text-lg font-bold text-center ${
-                    verification ? "verification-success" : "verification-error"
+                    verification ? "verification-success-bw" : "verification-error-bw"
                   }`}>
                     {verification ? "✅ Message is authentic and unchanged!" : "❌ Warning: Message has been altered!"}
                   </p>
